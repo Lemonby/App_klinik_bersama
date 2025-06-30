@@ -7,9 +7,9 @@ public class Akun {
     private String userName;
     private String password;
 
-    public Akun (int akun, String nama, String password) {
+    public Akun (int akun, String uname, String password) {
         this.id_akun = akun;
-        this.userName = nama;
+        this.userName = uname;
         this.password = password;
     }
 
