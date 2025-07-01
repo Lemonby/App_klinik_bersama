@@ -1,6 +1,6 @@
 package controller;
 
-import model.akunModel;
+import model.AkunModel;
 import model.source.Akun;
 import util.DBConnection;
 import util.Validator;
@@ -13,20 +13,20 @@ import java.sql.Connection;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-public class akunController {
+public class AkunController {
     private final Font Poppins;
     private final Font SMALL_FONT;
     private final Font HEADER_FONT;
     private final Font REGULER_FONT;
     private final ImageIcon logo;
-    private final akunModel akunModel;
+    private final AkunModel akunModel;
     public enum LoginResult { ADMIN, USER, INVALID, NOT_FOUND }
 
-    public akunController() {
+    public AkunController() {
         // Constructor logic if needed
         Connection conn = DBConnection.getConnection();
         this.logo = new ImageIcon();
-        this.akunModel = new akunModel(conn);
+        this.akunModel = new AkunModel(conn);
 
         Font loader = FontCreator.getPopins();
         Poppins = loader;

@@ -1,26 +1,26 @@
-package model;
+package model  ;
 
 import model.source.Dokter;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.*;
 
-public class dokterModel {
+public class DokterModel {
 
     private Connection conn;
 
-    public dokterModel(Connection connection) {
+    public DokterModel(Connection connection) {
         this.conn = connection;
-    }
+        }
 
     public boolean tambahDokter(Dokter dokter) {
         String sql = "INSERT INTO tb_dokter (nip, nama_dokter, kelamin, no_telp, spesialis_dokter) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, dokter.getNip());
             stmt.setString(2, dokter.getNama());
-            stmt.setString(3, dokter.getNama());
-            stmt.setString(4, dokter.getNama());
-            stmt.setString(5, dokter.getNama());
+            stmt.setString(3, dokter.getKelamin());
+            stmt.setString(4, dokter.getNoTelp());
+            stmt.setString(5, dokter.getSpesialis());
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -31,7 +31,7 @@ public class dokterModel {
 
     public boolean updateDokter(Dokter dokter) {
         String sql = "UPDATE tb_dokter SET nama_dokter=?, kelamin=?, no_telp=?, spesialis_dokter=? WHERE nip=?";
-        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, dokter.getNip());
             stmt.setString(2, dokter.getNama());
             stmt.setString(3, dokter.getKelamin());
@@ -84,7 +84,6 @@ public class dokterModel {
         return daftarDokter;
     }
 
-    // mengubah data hasil query select yg di simpan ResultSet -> object baru Dokter
     private Dokter parseResultSet(ResultSet rs) throws SQLException {
         return new Dokter(
                 rs.getString("nip"),

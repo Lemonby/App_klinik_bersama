@@ -5,11 +5,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class akunModel {
+public class AkunModel {
 
     private Connection conn;
 
-    public akunModel(Connection connection) {
+    public AkunModel(Connection connection) {
         this.conn = connection;
     }
 

@@ -1,18 +1,18 @@
 package controller;
 
 import model.source.JadwalPeriksa;
-import model.jadwalPeriksaModel;
+import model.JadwalPeriksaModel;
 import util.DBConnection;
 
 import java.sql.Connection;
 import java.util.List;
 
-public class jadwalPeriksaController {
-    private final jadwalPeriksaModel periksaModel;
+public class JadwalPeriksaController {
+    private final JadwalPeriksaModel periksaModel;
 
-    public jadwalPeriksaController() {
+    public JadwalPeriksaController() {
         Connection connection = DBConnection.getConnection();
-        this.periksaModel = new jadwalPeriksaModel(connection);
+        this.periksaModel = new JadwalPeriksaModel(connection);
     }
 
     public boolean tambahJadwalPeriksa(JadwalPeriksa jadwal) {

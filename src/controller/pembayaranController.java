@@ -1,18 +1,18 @@
 package controller;
 
 import model.source.Pembayaran;
-import model.pembayaranModel;
+import model.PembayaranModel;
 import util.DBConnection;
 
 import java.sql.Connection;
 import java.util.List;
 
 public class pembayaranController {
-    private final pembayaranModel pembayaranmodel;
+    private final PembayaranModel pembayaranmodel;
 
     public pembayaranController() {
         Connection conn = DBConnection.getConnection();
-        this.pembayaranmodel = new pembayaranModel(conn);
+        this.pembayaranmodel = new PembayaranModel(conn);
     }
 
     public boolean tambahPembayaran(Pembayaran pembayaran) {

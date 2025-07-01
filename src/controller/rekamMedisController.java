@@ -1,19 +1,19 @@
 package controller;
 
 import model.source.RekamMedis;
-import model.rekamMedisModel;
+import model.RekamMedisModel;
 import util.DBConnection;
 import util.Validator;
 
 import java.sql.Connection;
 import java.util.List;
 
-public class rekamMedisController {
-    private final rekamMedisModel rekamMedis;
+public class RekamMedisController {
+    private final RekamMedisModel rekamMedis;
 
-    public rekamMedisController() {
+    public RekamMedisController() {
         Connection conn = DBConnection.getConnection();
-        this.rekamMedis = new rekamMedisModel(conn);
+        this.rekamMedis = new RekamMedisModel(conn);
     }
 
     public boolean tambahRekamMedis(RekamMedis rekammedis) {

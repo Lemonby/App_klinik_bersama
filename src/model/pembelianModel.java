@@ -6,11 +6,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class pembelianModel {
+public class PembelianModel {
 
     private Connection conn;
 
-    public pembelianModel(Connection connection) {
+    public PembelianModel(Connection connection) {
         this.conn = connection;
     }
 

@@ -5,35 +5,25 @@ import util.Validator;
 public class HistoryLog {
 
     private int idLog; 
-    private int id_akun; 
     private String username;
     private String action; 
-    private long timestamp; 
+    private String timestamp; 
 
     public HistoryLog() {
     // Konstruktor kosong untuk kebutuhan setter
     }
 
-    public HistoryLog(int idLog, int id_akun, String username, String action, String userType, long timestamp) {
-        setIdLog(idLog);
-        setUserId(id_akun);
-        setUsername(username);
-        setAction(action);
-        setTimestamp(timestamp);
+    public HistoryLog(int idLog, String username, String action, String timestamp) {
+        this.idLog = idLog;
+        this.username = username;
+        this.action = action;
+        this.timestamp = timestamp;
     }
 
     public void setIdLog(int idLog) {
         this.idLog = idLog; 
     }
     public int getIdLog() { return idLog; }
-
-    public void setUserId(int id_akun) { 
-        if (id_akun <= 0) {
-            throw new IllegalArgumentException("User ID harus lebih besar dari 0.");
-        }
-        this.id_akun = id_akun; 
-    }
-    public int getUserId() { return id_akun; }
 
     public void setUsername(String username) { 
         if (!Validator.isValidUsername(username)) {
@@ -51,12 +41,12 @@ public class HistoryLog {
     }
     public String getAction() { return action; }
 
-    public void setTimestamp(long timestamp) { 
-        if (timestamp <= 0) {
+    public void setTimestamp(String timestamp) { 
+        if (timestamp == null) {
             throw new IllegalArgumentException("Timestamp tidak valid.");
         }
         this.timestamp = timestamp; 
     }
-    public long getTimestamp() { return timestamp; }
+    public String getTimestamp() { return timestamp; }
 
 }

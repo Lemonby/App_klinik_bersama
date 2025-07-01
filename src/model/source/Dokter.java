@@ -1,5 +1,8 @@
 package model.source;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import util.Validator;
 // import java.util.List;
 // import java.util.ArrayList;
@@ -58,4 +61,15 @@ public class Dokter {
         this.noTelp = noTelp;
     } 
     public String getNoTelp() { return noTelp; }
+
+    public List<DokterSchedule> getSchedules(JadwalDokter model) {
+        List<DokterSchedule> allSchedules = model.getAllSchedules();
+        List<DokterSchedule> mySchedules = new ArrayList<>();
+        for (DokterSchedule schedule : allSchedules) {
+            if (schedule.getNip().equals(this.nip)) {
+                mySchedules.add(schedule);
+            }
+        }
+        return mySchedules;
+    }
 }

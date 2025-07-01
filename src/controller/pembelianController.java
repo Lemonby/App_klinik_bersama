@@ -1,18 +1,18 @@
 package controller;
 
 import model.source.Pembelian;
-import model.pembelianModel;
+import model.PembelianModel;
 import util.DBConnection;
 
 import java.sql.Connection;
 import java.util.List;
 
-public class pembelianController {
-    private final pembelianModel pembelianmodel;
+public class PembelianController {
+    private final PembelianModel pembelianmodel;
 
-    public pembelianController() {
+    public PembelianController() {
         Connection conn = DBConnection.getConnection();
-        this.pembelianmodel = new pembelianModel(conn);
+        this.pembelianmodel = new PembelianModel(conn);
     }
 
     public boolean tambahPembelian(Pembelian pembelian) {

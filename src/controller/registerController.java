@@ -1,9 +1,9 @@
 package controller;
 
 import model.source.Pasien;
-import model.pasienModel;
+import model.PasienModel;
 import model.source.Akun;
-import model.akunModel;
+import model.AkunModel;
 
 import util.Validator;
 import util.DBConnection;
@@ -14,20 +14,20 @@ import java.time.format.DateTimeParseException;
 
 import javax.swing.JOptionPane;
 
-public class registerController {
-    private final pasienModel pasienmodel;
-    private final akunModel akunmodel;
+public class RegisterController {
+    private final PasienModel pasienmodel;
+    private final AkunModel akunmodel;
     public enum RegisterResult {
         SUCCESS, USERNAME, PASSWORD, NAME, ADDRESS, PHONE, INVALID
     }
 
-    public registerController() {
+    public RegisterController() {
         Connection conn = DBConnection.getConnection();
-        this.pasienmodel = new pasienModel(conn);
-        this.akunmodel = new akunModel(conn);
+        this.pasienmodel = new PasienModel(conn);
+        this.akunmodel = new AkunModel(conn);
     }
 
-    public RegisterResult registrasiPasien(String uname, String pasword, String nama, String alamat, String nik, String kelamain, String noTelepon, String tglLahir) {
+    public RegisterResult RegistrasiPasien(String uname, String pasword, String nama, String alamat, String nik, String kelamain, String noTelepon, String tglLahir) {
        // Validasi input
         if (!Validator.isValidUsername(uname)) {
            System.out.println("Username tidak valid");

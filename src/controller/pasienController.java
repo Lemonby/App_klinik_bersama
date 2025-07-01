@@ -1,19 +1,19 @@
 package controller;
 
 import model.source.Pasien;
-import model.pasienModel;
+import model.PasienModel;
 import util.DBConnection;
 import util.Validator;
 
 import java.sql.Connection;
 import java.util.List;
 
-public class pasienController {
-    private final pasienModel pasienmodel;
+public class PasienController {
+    private final PasienModel pasienmodel;
 
-    public pasienController() {
+    public PasienController() {
         Connection conn = DBConnection.getConnection();
-        this.pasienmodel = new pasienModel(conn);
+        this.pasienmodel = new PasienModel(conn);
     }
 
     public boolean tambahPasien(Pasien pasien) {

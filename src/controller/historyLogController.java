@@ -1,63 +1,79 @@
 package controller;
 
 import model.source.HistoryLog;
-import model.historyLogModel;
+import model.HistoryLogModel;
 import util.DBConnection;
-import model.akunModel;
-import util.Validator;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.sql.Connection;
 import java.util.List;
 
-public class historyLogController {
-    private final historyLogModel historyLogModel;
-    private final akunModel akunModel;
+public class HistoryLogController {
+    private final HistoryLogModel historyLogModel;
+    private final HistoryLog historyLog;
 
-    public historyLogController() {
+    public HistoryLogController() {
         Connection conn = DBConnection.getConnection();
-        this.historyLogModel = new historyLogModel(conn);
-        this.akunModel = new akunModel(conn);
+        this.historyLogModel = new HistoryLogModel(conn);
+        this.historyLog = new HistoryLog();
     }
 
-    public boolean insertLog(int userid, String action, String userType) {
-        if (userid <= 0) {
-            return false;
-        }
-        if (!Validator.isValidUserType(userType)) {
-            return false;
-        }
-        if (!Validator.isValidAction(action)) {
-            return false;
-        }
-
-        String username = akunModel.getAkunById(userid).getUsername();
-        if (username == null || !Validator.isValidUsername(username)) {
-            System.out.println("Username tidak valid.");
-            return false;
-        }
-
+    public boolean logAdminActivity(int idLog, String uname, String action, String timestamp) {
         HistoryLog log = new HistoryLog();
-        log.setUserId(userid);
-        log.setUsername(username);
+        log.setIdLog(idLog);
+        log.setUsername(uname);
         log.setAction(action);
-        log.setTimestamp(System.currentTimeMillis());
+        log.setTimestamp(timestamp);
 
-        return historyLogModel.insertLog(log);        
+        return historyLogModel.insertLog(log);
     }
 
-    public List<HistoryLog> getAllLogs() {
-        return historyLogModel.getAllLogs();
+    public boolean logActivity(int idLog, String uname, String action, String timestamp) {
+        HistoryLog log = new HistoryLog();
+        log.setIdLog(idLog);
+        log.setUsername(uname);
+        log.setAction(action);
+        log.setTimestamp(timestamp);
+
+        return historyLogModel.insertLog(log);
     }
 
-    public HistoryLog getLogsByUserId(int userId) {
-        if (userId <= 0) {
-            System.out.println("User ID tidak valid. != 0");
-            return null;
-        }
-        return historyLogModel.getLogsByUserId(userId);
+    public boolean recordLogin(String uname) {
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        int idLog = historyLog.getIdLog();
+        String action = "Login";
+        return logActivity(idLog, uname, action, timestamp);
+    }
+
+    public boolean recordLogout(String uname) {
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        int idLog = historyLog.getIdLog();
+        String action = "Logout";
+        return logActivity(idLog, uname, action, timestamp);
+    }
+
+    public boolean recordAdminLogin() {
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        int idLog = historyLog.getIdLog();
+        String uname = "Admin";
+        String action = "Login";
+        return logAdminActivity(idLog, uname, action, timestamp);
+    }
+
+    public boolean recordAdminLogout() {
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        int idLog = historyLog.getIdLog();
+        String uname = "Admin";
+        String action = "Logout";
+        return logAdminActivity(idLog, uname, action, timestamp);
     }
 
     public boolean clearLogs() {
         return historyLogModel.deleteAllLogs();
+    }
+
+    public List<HistoryLog> getAllLogs() {
+        return historyLogModel.getAllLogs();
     }
 }

@@ -1,18 +1,19 @@
 package model;
 
-import model.source.JadwalDokter;
+import model.source.DokterSchedule;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class jadwalDokterModel {
+public class JadwalDokterModel {
     private Connection connection;
 
-    public jadwalDokterModel(Connection connection) {
+    public  JadwalDokterModel(Connection connection) {
         this.connection = connection;
     }
 
-    public boolean createSchedule(JadwalDokter schedule) throws SQLException {
+    public boolean createSchedule(DokterSchedule schedule) throws SQLException {
         String sql = "INSERT INTO tb_jadwal_dokter (nama, nip, spesialis, hari, jam) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, schedule.getNama());
@@ -25,13 +26,13 @@ public class jadwalDokterModel {
         }
     }
 
-    public List<JadwalDokter> getAllSchedules() throws SQLException {
-        List<JadwalDokter> schedules = new ArrayList<>();
+    public List<DokterSchedule> getAllSchedules() throws SQLException {
+        List<DokterSchedule> schedules = new ArrayList<>();
         String sql = "SELECT * FROM tb_jadwal_dokter";
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
-                JadwalDokter schedule = new JadwalDokter(
+                DokterSchedule schedule = new DokterSchedule(
                     resultSet.getString("nama"),
                     resultSet.getString("nip"),
                     resultSet.getString("spesialis"),
@@ -44,7 +45,7 @@ public class jadwalDokterModel {
         return schedules;
     }
 
-    public boolean updateSchedule(JadwalDokter schedule) throws SQLException {
+    public boolean updateSchedule(DokterSchedule schedule) throws SQLException {
         String sql = "UPDATE tb_jadwal_dokter SET hari = ?, jam = ? WHERE nip = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, schedule.getHari());

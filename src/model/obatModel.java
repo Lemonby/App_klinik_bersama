@@ -6,11 +6,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class obatModel {
+public class ObatModel {
 
     private Connection conn;
 
-    public obatModel(Connection connection) {
+    public ObatModel(Connection connection) {
         this.conn = connection;
     }
 

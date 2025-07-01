@@ -6,11 +6,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class jadwalPeriksaModel {
+public class JadwalPeriksaModel {
 
     private Connection conn;
 
-    public jadwalPeriksaModel(Connection connection) {
+    public JadwalPeriksaModel(Connection connection) {
         this.conn = connection;
     }
 

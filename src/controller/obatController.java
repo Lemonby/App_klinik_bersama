@@ -1,6 +1,6 @@
 package controller;
 
-import model.obatModel;
+import model.ObatModel;
 import model.source.Obat;
 import util.DBConnection;
 import util.Validator;
@@ -8,12 +8,12 @@ import util.Validator;
 import java.sql.Connection;
 import java.util.List;
 
-public class obatController {
-    private final obatModel obatmodel;
+public class ObatController {
+    private final ObatModel obatmodel;
     
-    public obatController() {
+    public ObatController() {
         Connection conn = DBConnection.getConnection();
-        this.obatmodel = new obatModel(conn);
+        this.obatmodel = new ObatModel(conn);
     }
 
     public boolean tambahObat(Obat obat) {

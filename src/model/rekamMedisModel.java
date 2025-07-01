@@ -6,11 +6,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class rekamMedisModel {
+public class RekamMedisModel {
 
     private Connection conn;
 
-    public rekamMedisModel(Connection connection) {
+    public RekamMedisModel(Connection connection) {
         this.conn = connection;
     }
 

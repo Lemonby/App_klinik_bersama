@@ -1,26 +1,28 @@
 package model;
 
+import model.source.Akun;
 import model.source.HistoryLog;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class historyLogModel {
-
+public class HistoryLogModel {
+    
+    private Akun akun;
     private final Connection conn;
 
-    public historyLogModel(Connection connection) {
+    public HistoryLogModel(Connection connection) {
         this.conn = connection;
     }
 
     public boolean insertLog(HistoryLog log) {
-        String sql = "INSERT INTO tb_history_log (id_akun, uname, action, timestamp) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tb_history_log (id_historyLog, uname, action, timestamp) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, log.getUserId());
+            stmt.setInt(1, log.getIdLog());
             stmt.setString(2, log.getUsername());
             stmt.setString(3, log.getAction());
-            stmt.setLong(4, log.getTimestamp());
+            stmt.setString(4, log.getTimestamp());
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -31,9 +33,9 @@ public class historyLogModel {
 
     public List<HistoryLog> getAllLogs() {
         List<HistoryLog> daftarHistoryLog = new ArrayList<>();
-        String sql = "SELECT * FROM tb_history_log";
+        String sql = "SELECT * FROM tb_history_log ORDER BY timestamp DESC";
         try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+            ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 daftarHistoryLog.add(parseResultSet(rs));
             }
@@ -43,18 +45,19 @@ public class historyLogModel {
         return daftarHistoryLog;
     }
 
-    public HistoryLog getLogsByUserId(int userId) {
-        String sql = "SELECT * FROM tb_history_log WHERE id_akun = ?";
+    public List<HistoryLog> getLogByUsername(String username) {
+        List<HistoryLog> userLogs = new ArrayList<>();
+        String sql = "SELECT * FROM tb_history_log WHERE uname = ? ORDER BY timestamp DESC";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, userId);
+            stmt.setString(1, username = akun.getUsername());
             ResultSet rs = stmt.executeQuery();
-                if (rs.next()) {
-                    return parseResultSet(rs);
-                }
+            while (rs.next()) {
+                userLogs.add(parseResultSet(rs));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return userLogs;
     }
 
     public boolean deleteAllLogs() {
@@ -70,12 +73,10 @@ public class historyLogModel {
 
     private HistoryLog parseResultSet(ResultSet rs) throws SQLException {
         return new HistoryLog(
-                rs.getInt("id"),
-                rs.getInt("user_id"),
+                rs.getInt("id_historyLog"),
                 rs.getString("username"),
                 rs.getString("action"),
-                rs.getString("user_type"),
-                rs.getLong("timestamp")
+                rs.getString("timestamp")
         );
     }
 }

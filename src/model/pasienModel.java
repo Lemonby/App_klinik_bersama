@@ -6,10 +6,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class pasienModel {
+public class PasienModel {
     private Connection conn;
 
-    public pasienModel(Connection connection) {
+    public PasienModel(Connection connection) {
         this.conn = connection;
     }
 
